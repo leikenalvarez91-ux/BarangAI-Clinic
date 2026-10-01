@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
+
+<title>Child Health</title>
+
+<style>
+
+* {
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+
+    margin: 0;
+
+    min-height: 100vh;
+
+    background:
+        linear-gradient(
+            rgba(0,105,120,.85),
+            rgba(0,150,120,.85)
+        );
+
+    padding: 30px;
+}
+
+.container {
+
+    max-width: 900px;
+
+    margin: auto;
+
+    background: #f5f9f8;
+
+    padding: 25px;
+
+    border-radius: 20px;
+}
+
+.card {
+
+    background: white;
+
+    padding: 25px;
+
+    border-radius: 15px;
+
+    margin-bottom: 15px;
+}
+
+h1,
+h2 {
+
+    color: #006d77;
+}
+
+p,
+li {
+
+    color: #666;
+
+    line-height: 1.6;
+}
+
+button {
+
+    padding: 12px 20px;
+
+    border: none;
+
+    border-radius: 7px;
+
+    background: #007f78;
+
+    color: white;
+
+    font-weight: bold;
+
+    cursor: pointer;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<div class="card">
+
+<h1>
+👶 Child Health
+</h1>
+
+<p>
+Child wellness and health monitoring
+services.
+</p>
+
+<button onclick="back()">
+← Back to Dashboard
+</button>
+
+</div>
+
+
+<div class="card">
+
+<h2>
+Child Health Services
+</h2>
+
+<ul>
+
+<li>
+Child growth monitoring
+</li>
+
+<li>
+Immunization monitoring
+</li>
+
+<li>
+Nutrition information
+</li>
+
+<li>
+Child wellness monitoring
+</li>
+
+<li>
+Health education
+</li>
+
+</ul>
+
+</div>
+
+
+<div class="card">
+
+<h2>
+Health Reminder
+</h2>
+
+<p>
+Parents and guardians may contact
+the Barangay Health Center for
+child health services and guidance.
+</p>
+
+</div>
+
+</div>
+
+<script>
+
+function back() {
+
+    window.location.href =
+        "dashboard.html";
+
+}
+
+</script>
+
+</body>
+
+</html>

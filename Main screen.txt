@@ -1,0 +1,936 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        Barangay Health Center Portal
+    </title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+
+            margin: 0;
+
+            min-height: 100vh;
+
+            background:
+                linear-gradient(
+                    rgba(0, 105, 120, 0.82),
+                    rgba(0, 150, 120, 0.82)
+                ),
+                url("https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=1920&q=80");
+
+            background-size: cover;
+
+            background-position: center;
+
+            color: #333;
+        }
+
+        .container {
+
+            width: 100%;
+
+            max-width: 1200px;
+
+            min-height: 700px;
+
+            margin: 30px auto;
+
+            padding: 25px;
+
+            background: #f5f9f8;
+
+            border-radius: 20px;
+
+            box-shadow:
+                0 15px 40px
+                rgba(0,0,0,0.30);
+        }
+
+        .topbar {
+
+            background: white;
+
+            padding: 18px 22px;
+
+            border-radius: 15px;
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            margin-bottom: 20px;
+
+            box-shadow:
+                0 3px 12px
+                rgba(0,0,0,0.07);
+        }
+
+        .brand {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 12px;
+        }
+
+        .brand-icon {
+
+            width: 50px;
+
+            height: 50px;
+
+            background: #e3f7f4;
+
+            border-radius: 50%;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            font-size: 27px;
+        }
+
+        .brand h2 {
+
+            margin: 0;
+
+            color: #006d77;
+
+            font-size: 21px;
+        }
+
+        .brand span {
+
+            color: #777;
+
+            font-size: 12px;
+        }
+
+        .logout-btn {
+
+            width: auto;
+
+            padding: 10px 20px;
+
+            margin: 0;
+
+            border: none;
+
+            border-radius: 7px;
+
+            background: #dc3545;
+
+            color: white;
+
+            font-weight: bold;
+
+            cursor: pointer;
+        }
+
+        .logout-btn:hover {
+
+            background: #b52a37;
+        }
+
+        .welcome-card {
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #006d77,
+                    #009b88
+                );
+
+            color: white;
+
+            padding: 30px;
+
+            border-radius: 15px;
+
+            margin-bottom: 20px;
+
+            box-shadow:
+                0 5px 15px
+                rgba(0,0,0,0.10);
+        }
+
+        .welcome-card h1 {
+
+            margin: 0 0 8px;
+
+            font-size: 30px;
+        }
+
+        .welcome-card p {
+
+            margin: 0;
+
+            opacity: 0.9;
+        }
+
+        .grid {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            gap: 15px;
+
+            margin-bottom: 25px;
+        }
+
+        .card {
+
+            background: white;
+
+            padding: 20px;
+
+            border-radius: 14px;
+
+            box-shadow:
+                0 3px 12px
+                rgba(0,0,0,0.06);
+        }
+
+        .card-icon {
+
+            font-size: 30px;
+
+            margin-bottom: 10px;
+        }
+
+        .card h3 {
+
+            margin: 0 0 7px;
+
+            color: #006d77;
+
+            font-size: 17px;
+        }
+
+        .card p {
+
+            margin: 5px 0 10px;
+
+            color: #666;
+
+            font-size: 14px;
+
+            line-height: 1.5;
+        }
+
+        .status {
+
+            display: inline-block;
+
+            padding: 5px 10px;
+
+            border-radius: 20px;
+
+            font-size: 12px;
+
+            font-weight: bold;
+        }
+
+        .green {
+
+            background: #dff8e8;
+
+            color: #08733d;
+        }
+
+        .yellow {
+
+            background: #fff4cc;
+
+            color: #8a6900;
+        }
+
+        .section-title {
+
+            color: #006d77;
+
+            margin:
+                25px 0 12px;
+
+            font-size: 20px;
+        }
+
+        .announcement {
+
+            background: white;
+
+            border-left:
+                5px solid #007f78;
+
+            padding: 17px;
+
+            border-radius: 10px;
+
+            margin-bottom: 10px;
+
+            box-shadow:
+                0 3px 10px
+                rgba(0,0,0,0.05);
+        }
+
+        .announcement h3 {
+
+            margin: 0 0 5px;
+
+            color: #006d77;
+        }
+
+        .announcement p {
+
+            margin: 0;
+
+            color: #666;
+
+            font-size: 14px;
+
+            line-height: 1.5;
+        }
+
+        .services-grid {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(2, 1fr);
+
+            gap: 12px;
+        }
+
+        .service {
+
+            background: white;
+
+            padding: 18px;
+
+            border-radius: 12px;
+
+            box-shadow:
+                0 3px 10px
+                rgba(0,0,0,0.05);
+        }
+
+        .service strong {
+
+            color: #006d77;
+        }
+
+        .service p {
+
+            margin-bottom: 0;
+
+            color: #666;
+
+            font-size: 14px;
+
+            line-height: 1.5;
+        }
+
+        .profile-box {
+
+            background: white;
+
+            padding: 20px;
+
+            border-radius: 14px;
+
+            margin-top: 20px;
+
+            box-shadow:
+                0 3px 12px
+                rgba(0,0,0,0.06);
+        }
+
+        .profile-row {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            gap: 20px;
+
+            padding: 11px 0;
+
+            border-bottom:
+                1px solid #eee;
+
+            font-size: 14px;
+        }
+
+        .profile-row:last-child {
+
+            border-bottom: none;
+        }
+
+        .profile-label {
+
+            font-weight: bold;
+
+            color: #555;
+        }
+
+        .profile-value {
+
+            color: #777;
+
+            text-align: right;
+
+            word-break: break-word;
+        }
+
+        .not-found {
+
+            text-align: center;
+
+            padding: 60px 20px;
+
+            background: white;
+
+            border-radius: 15px;
+        }
+
+        .not-found h2 {
+
+            color: #006d77;
+        }
+
+        .not-found button {
+
+            width: auto;
+
+            padding:
+                12px 25px;
+
+            background: #007f78;
+
+            color: white;
+
+            border: none;
+
+            border-radius: 7px;
+
+            cursor: pointer;
+        }
+
+        @media(max-width: 850px) {
+
+            .container {
+
+                margin: 10px;
+
+                padding: 15px;
+            }
+
+            .grid {
+
+                grid-template-columns:
+                    1fr 1fr;
+            }
+
+        }
+
+        @media(max-width: 600px) {
+
+            .topbar {
+
+                flex-direction: column;
+
+                align-items: flex-start;
+
+                gap: 15px;
+            }
+
+            .logout-btn {
+
+                width: 100%;
+            }
+
+            .grid {
+
+                grid-template-columns:
+                    1fr;
+            }
+
+            .services-grid {
+
+                grid-template-columns:
+                    1fr;
+            }
+
+            .profile-row {
+
+                flex-direction: column;
+
+                gap: 5px;
+            }
+
+            .profile-value {
+
+                text-align: left;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <div id="dashboardContent">
+
+        <div class="topbar">
+
+            <div class="brand">
+
+                <div class="brand-icon">
+                    🏥
+                </div>
+
+                <div>
+
+                    <h2>
+                        Health Center Portal
+                    </h2>
+
+                    <span>
+                        Barangay Health Services
+                    </span>
+
+                </div>
+
+            </div>
+
+            <button
+                class="logout-btn"
+                onclick="logout()"
+            >
+                LOGOUT
+            </button>
+
+        </div>
+
+        <div class="welcome-card">
+
+            <h1 id="dashboardName">
+                Welcome!
+            </h1>
+
+            <p>
+                Your personal Barangay Health
+                Center dashboard.
+            </p>
+
+        </div>
+
+        <div class="grid">
+
+            <div class="card">
+
+                <div class="card-icon">
+                    ❤️
+                </div>
+
+                <h3>
+                    Health Status
+                </h3>
+
+                <p>
+                    Your account is currently
+                    registered with the Barangay
+                    Health Center.
+                </p>
+
+                <span class="status green">
+                    Active Resident
+                </span>
+
+            </div>
+
+            <div class="card">
+
+                <div class="card-icon">
+                    💉
+                </div>
+
+                <h3>
+                    Immunization
+                </h3>
+
+                <p>
+                    View your vaccination
+                    information when available.
+                </p>
+
+                <span class="status yellow">
+                    Check Records
+                </span>
+
+            </div>
+
+            <div class="card">
+
+                <div class="card-icon">
+                    📅
+                </div>
+
+                <h3>
+                    Appointments
+                </h3>
+
+                <p>
+                    No upcoming appointment
+                    recorded.
+                </p>
+
+                <span class="status green">
+                    Available
+                </span>
+
+            </div>
+
+        </div>
+
+        <h3 class="section-title">
+            🔔 Health Center Announcements
+        </h3>
+
+        <div class="announcement">
+
+            <h3>
+                Community Health Program
+            </h3>
+
+            <p>
+                Residents are encouraged to
+                participate in upcoming community
+                health activities organized by
+                the Barangay Health Center.
+            </p>
+
+        </div>
+
+        <div class="announcement">
+
+            <h3>
+                Regular Health Consultation
+            </h3>
+
+            <p>
+                Basic health consultations are
+                available at the Barangay Health
+                Center during regular service hours.
+            </p>
+
+        </div>
+
+        <h3 class="section-title">
+            🩺 Available Health Services
+        </h3>
+
+        <div class="services-grid">
+
+            <div class="service">
+
+                <strong>
+                    🩺 Health Consultation
+                </strong>
+
+                <p>
+                    Basic health assessment
+                    and consultation.
+                </p>
+
+            </div>
+
+            <div class="service">
+
+                <strong>
+                    💉 Immunization
+                </strong>
+
+                <p>
+                    Vaccination and immunization
+                    services.
+                </p>
+
+            </div>
+
+            <div class="service">
+
+                <strong>
+                    🤰 Maternal Health
+                </strong>
+
+                <p>
+                    Maternal and prenatal
+                    health services.
+                </p>
+
+            </div>
+
+            <div class="service">
+
+                <strong>
+                    👶 Child Health
+                </strong>
+
+                <p>
+                    Child wellness and
+                    health monitoring.
+                </p>
+
+            </div>
+
+            <div class="service">
+
+                <strong>
+                    ❤️ Community Health
+                </strong>
+
+                <p>
+                    Community-based
+                    health programs.
+                </p>
+
+            </div>
+
+            <div class="service">
+
+                <strong>
+                    📋 Health Records
+                </strong>
+
+                <p>
+                    Access available
+                    health information.
+                </p>
+
+            </div>
+
+        </div>
+
+        <h3 class="section-title">
+            👤 My Profile
+        </h3>
+
+        <div class="profile-box">
+
+            <div class="profile-row">
+
+                <span class="profile-label">
+                    Full Name
+                </span>
+
+                <span
+                    class="profile-value"
+                    id="profileName"
+                ></span>
+
+            </div>
+
+            <div class="profile-row">
+
+                <span class="profile-label">
+                    Date of Birth
+                </span>
+
+                <span
+                    class="profile-value"
+                    id="profileBirthday"
+                ></span>
+
+            </div>
+
+            <div class="profile-row">
+
+                <span class="profile-label">
+                    Sex
+                </span>
+
+                <span
+                    class="profile-value"
+                    id="profileGender"
+                ></span>
+
+            </div>
+
+            <div class="profile-row">
+
+                <span class="profile-label">
+                    Address
+                </span>
+
+                <span
+                    class="profile-value"
+                    id="profileAddress"
+                ></span>
+
+            </div>
+
+            <div class="profile-row">
+
+                <span class="profile-label">
+                    Contact
+                </span>
+
+                <span
+                    class="profile-value"
+                    id="profilePhone"
+                ></span>
+
+            </div>
+
+            <div class="profile-row">
+
+                <span class="profile-label">
+                    Email
+                </span>
+
+                <span
+                    class="profile-value"
+                    id="profileEmail"
+                ></span>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+
+function logout() {
+
+    localStorage.removeItem(
+        "currentUserId"
+    );
+
+    window.location.href =
+        "login.html";
+}
+
+function loadDashboard() {
+
+    const currentUserId =
+        localStorage.getItem(
+            "currentUserId"
+        );
+
+    if (!currentUserId) {
+
+        window.location.href =
+            "login.html";
+
+        return;
+    }
+
+    const savedAccounts =
+        JSON.parse(
+            localStorage.getItem(
+                "barangayAccounts"
+            )
+        ) || [];
+
+    const account =
+        savedAccounts.find(
+            function(user) {
+
+                return (
+                    user.id === currentUserId &&
+                    user.status === "active"
+                );
+
+            }
+        );
+
+    if (!account) {
+
+        localStorage.removeItem(
+            "currentUserId"
+        );
+
+        window.location.href =
+            "login.html";
+
+        return;
+    }
+
+    document
+        .getElementById("dashboardName")
+        .innerText =
+        "Welcome, " +
+        account.firstName +
+        "!";
+
+    document
+        .getElementById("profileName")
+        .innerText =
+        account.firstName +
+        " " +
+        account.lastName;
+
+    document
+        .getElementById("profileBirthday")
+        .innerText =
+        account.birthday;
+
+    document
+        .getElementById("profileGender")
+        .innerText =
+        account.gender;
+
+    document
+        .getElementById("profileAddress")
+        .innerText =
+        account.address;
+
+    document
+        .getElementById("profilePhone")
+        .innerText =
+        account.phone;
+
+    document
+        .getElementById("profileEmail")
+        .innerText =
+        account.email;
+}
+
+loadDashboard();
+
+</script>
+
+</body>
+
+</html>

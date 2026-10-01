@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        About Us
+    </title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+
+            margin: 0;
+
+            min-height: 100vh;
+
+            background:
+                linear-gradient(
+                    rgba(0,105,120,0.85),
+                    rgba(0,150,120,0.85)
+                );
+
+            padding: 25px;
+        }
+
+        .container {
+
+            max-width: 900px;
+
+            margin: auto;
+
+            background: #f5f9f8;
+
+            padding: 30px;
+
+            border-radius: 20px;
+
+            box-shadow:
+                0 15px 40px
+                rgba(0,0,0,0.3);
+        }
+
+        .header {
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #006d77,
+                    #009b88
+                );
+
+            color: white;
+
+            padding: 30px;
+
+            border-radius: 15px;
+
+            text-align: center;
+        }
+
+        .header-icon {
+
+            font-size: 55px;
+        }
+
+        .header h1 {
+
+            margin: 10px 0;
+        }
+
+        .card {
+
+            background: white;
+
+            padding: 25px;
+
+            border-radius: 14px;
+
+            margin-top: 18px;
+
+            box-shadow:
+                0 3px 12px
+                rgba(0,0,0,0.06);
+        }
+
+        .card h2 {
+
+            color: #006d77;
+        }
+
+        .card p {
+
+            color: #666;
+
+            line-height: 1.7;
+        }
+
+        .mission {
+
+            display: grid;
+
+            grid-template-columns:
+                1fr 1fr;
+
+            gap: 15px;
+        }
+
+        button {
+
+            width: 100%;
+
+            padding: 13px;
+
+            border: none;
+
+            border-radius: 7px;
+
+            background: #007f78;
+
+            color: white;
+
+            font-weight: bold;
+
+            font-size: 16px;
+
+            cursor: pointer;
+
+            margin-top: 20px;
+        }
+
+        button:hover {
+
+            background: #005f59;
+        }
+
+        @media(max-width:600px) {
+
+            .mission {
+
+                grid-template-columns: 1fr;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="header">
+
+        <div class="header-icon">
+            🏥
+        </div>
+
+        <h1>
+            Barangay Health Center
+        </h1>
+
+        <p>
+            Serbisyong Pangkalusugan para sa
+            ating Komunidad
+        </p>
+
+    </div>
+
+
+    <div class="card">
+
+        <h2>
+            About Our Health Center
+        </h2>
+
+        <p>
+            The Barangay Health Center provides
+            basic health services and community
+            health programs for residents.
+        </p>
+
+        <p>
+            Our online portal helps residents
+            access health information, view
+            records, request appointments and
+            communicate feedback to the health
+            center.
+        </p>
+
+    </div>
+
+
+    <div class="mission">
+
+        <div class="card">
+
+            <h2>
+                🎯 Our Mission
+            </h2>
+
+            <p>
+                To provide accessible and
+                community-oriented basic health
+                services to residents.
+            </p>
+
+        </div>
+
+
+        <div class="card">
+
+            <h2>
+                👁️ Our Vision
+            </h2>
+
+            <p>
+                A healthy, informed and
+                active community where residents
+                can access essential health
+                services.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div class="card">
+
+        <h2>
+            🩺 Our Services
+        </h2>
+
+        <p>
+            • Health Consultation
+        </p>
+
+        <p>
+            • Immunization
+        </p>
+
+        <p>
+            • Maternal Health
+        </p>
+
+        <p>
+            • Child Health
+        </p>
+
+        <p>
+            • Community Health Programs
+        </p>
+
+        <p>
+            • Health Records
+        </p>
+
+    </div>
+
+
+    <button onclick="goBack()">
+        ← Back to Dashboard
+    </button>
+
+</div>
+
+
+<script>
+
+function goBack() {
+
+    window.location.href =
+        "dashboard.html";
+
+}
+
+</script>
+
+</body>
+
+</html>

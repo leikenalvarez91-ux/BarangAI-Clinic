@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        Feedback
+    </title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+
+            margin: 0;
+
+            min-height: 100vh;
+
+            background:
+                linear-gradient(
+                    rgba(0,105,120,0.85),
+                    rgba(0,150,120,0.85)
+                );
+
+            padding: 25px;
+        }
+
+        .container {
+
+            max-width: 750px;
+
+            margin: auto;
+
+            background: #f5f9f8;
+
+            padding: 30px;
+
+            border-radius: 20px;
+
+            box-shadow:
+                0 15px 40px
+                rgba(0,0,0,0.3);
+        }
+
+        .header {
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #006d77,
+                    #009b88
+                );
+
+            color: white;
+
+            padding: 25px;
+
+            border-radius: 15px;
+
+            margin-bottom: 20px;
+        }
+
+        .header h1 {
+
+            margin: 0 0 8px;
+        }
+
+        .form-box {
+
+            background: white;
+
+            padding: 25px;
+
+            border-radius: 15px;
+        }
+
+        label {
+
+            display: block;
+
+            font-weight: bold;
+
+            color: #444;
+
+            margin-top: 15px;
+        }
+
+        input,
+        select,
+        textarea {
+
+            width: 100%;
+
+            padding: 12px;
+
+            margin-top: 6px;
+
+            border: 1px solid #ccc;
+
+            border-radius: 7px;
+
+            font-size: 15px;
+        }
+
+        textarea {
+
+            min-height: 130px;
+
+            resize: vertical;
+        }
+
+        button {
+
+            width: 100%;
+
+            padding: 13px;
+
+            border: none;
+
+            border-radius: 7px;
+
+            background: #007f78;
+
+            color: white;
+
+            font-weight: bold;
+
+            font-size: 16px;
+
+            cursor: pointer;
+
+            margin-top: 20px;
+        }
+
+        button:hover {
+
+            background: #005f59;
+        }
+
+        .back {
+
+            background: #777;
+        }
+
+        .back:hover {
+
+            background: #555;
+        }
+
+        .success {
+
+            display: none;
+
+            background: #dff8e8;
+
+            color: #08733d;
+
+            padding: 13px;
+
+            border-radius: 7px;
+
+            margin-top: 15px;
+
+            font-weight: bold;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="header">
+
+        <h1>
+            💬 Resident Feedback
+        </h1>
+
+        <p>
+            Your feedback helps us improve
+            our Barangay Health Center services.
+        </p>
+
+    </div>
+
+
+    <div class="form-box">
+
+        <form id="feedbackForm">
+
+            <label>
+                Feedback Type
+            </label>
+
+            <select id="feedbackType" required>
+
+                <option value="">
+                    Select feedback type
+                </option>
+
+                <option>
+                    Suggestion
+                </option>
+
+                <option>
+                    Service Feedback
+                </option>
+
+                <option>
+                    Complaint
+                </option>
+
+                <option>
+                    Appreciation
+                </option>
+
+            </select>
+
+
+            <label>
+                Rating
+            </label>
+
+            <select id="rating" required>
+
+                <option value="">
+                    Select rating
+                </option>
+
+                <option>
+                    5 - Excellent
+                </option>
+
+                <option>
+                    4 - Very Good
+                </option>
+
+                <option>
+                    3 - Good
+                </option>
+
+                <option>
+                    2 - Needs Improvement
+                </option>
+
+                <option>
+                    1 - Poor
+                </option>
+
+            </select>
+
+
+            <label>
+                Your Feedback
+            </label>
+
+            <textarea
+                id="feedbackText"
+                placeholder="Write your feedback here..."
+                required
+            ></textarea>
+
+
+            <button type="submit">
+                SUBMIT FEEDBACK
+            </button>
+
+        </form>
+
+
+        <div
+            class="success"
+            id="successMessage"
+        >
+            ✅ Thank you! Your feedback has
+            been submitted.
+        </div>
+
+
+        <button
+            class="back"
+            onclick="goBack()"
+        >
+            ← Back to Dashboard
+        </button>
+
+    </div>
+
+</div>
+
+
+<script>
+
+document
+    .getElementById("feedbackForm")
+    .addEventListener(
+        "submit",
+        function(event) {
+
+            event.preventDefault();
+
+
+            const feedback = {
+
+                type:
+                    document
+                    .getElementById(
+                        "feedbackType"
+                    )
+                    .value,
+
+                rating:
+                    document
+                    .getElementById(
+                        "rating"
+                    )
+                    .value,
+
+                message:
+                    document
+                    .getElementById(
+                        "feedbackText"
+                    )
+                    .value,
+
+                date:
+                    new Date().toISOString()
+
+            };
+
+
+            localStorage.setItem(
+                "barangayFeedback",
+                JSON.stringify(
+                    feedback
+                )
+            );
+
+
+            document
+                .getElementById(
+                    "successMessage"
+                )
+                .style.display =
+                "block";
+
+
+            document
+                .getElementById(
+                    "feedbackForm"
+                )
+                .reset();
+
+        }
+    );
+
+
+function goBack() {
+
+    window.location.href =
+        "dashboard.html";
+
+}
+
+</script>
+
+</body>
+
+</html>

@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
+
+<title>Appointments</title>
+
+<style>
+
+* {
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+
+    margin: 0;
+
+    min-height: 100vh;
+
+    background:
+        linear-gradient(
+            rgba(0,105,120,.85),
+            rgba(0,150,120,.85)
+        );
+
+    padding: 30px;
+}
+
+.container {
+
+    max-width: 900px;
+
+    margin: auto;
+
+    background: #f5f9f8;
+
+    padding: 25px;
+
+    border-radius: 20px;
+
+    box-shadow:
+        0 15px 40px
+        rgba(0,0,0,0.25);
+}
+
+.header {
+
+    background:
+        linear-gradient(
+            135deg,
+            #006d77,
+            #009b88
+        );
+
+    color: white;
+
+    padding: 25px;
+
+    border-radius: 15px;
+
+    margin-bottom: 20px;
+}
+
+.header h1 {
+
+    margin: 0 0 8px;
+
+}
+
+.header p {
+
+    margin: 0 0 20px;
+
+}
+
+button {
+
+    padding: 12px 20px;
+
+    border: none;
+
+    border-radius: 7px;
+
+    background: #007f78;
+
+    color: white;
+
+    font-weight: bold;
+
+    cursor: pointer;
+}
+
+button:hover {
+
+    background: #005f59;
+
+}
+
+.appointment {
+
+    background: white;
+
+    padding: 25px;
+
+    border-radius: 15px;
+
+    margin-bottom: 15px;
+
+    box-shadow:
+        0 3px 12px
+        rgba(0,0,0,0.06);
+}
+
+.appointment h2 {
+
+    color: #006d77;
+
+    margin-top: 0;
+
+}
+
+.appointment-row {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    padding: 13px 0;
+
+    border-bottom: 1px solid #eee;
+
+}
+
+.appointment-row:last-child {
+
+    border-bottom: none;
+
+}
+
+.label {
+
+    font-weight: bold;
+
+    color: #555;
+
+}
+
+.value {
+
+    color: #333;
+
+    text-align: right;
+
+}
+
+.status {
+
+    display: inline-block;
+
+    padding: 7px 13px;
+
+    border-radius: 20px;
+
+    background: #fff4cc;
+
+    color: #8a6900;
+
+    font-weight: bold;
+
+    font-size: 13px;
+}
+
+.notes {
+
+    margin-top: 20px;
+
+    padding: 15px;
+
+    background: #f5f9f8;
+
+    border-radius: 10px;
+
+}
+
+.notes strong {
+
+    color: #006d77;
+
+}
+
+.empty {
+
+    text-align: center;
+
+    padding: 45px;
+
+    background: white;
+
+    border-radius: 15px;
+
+    color: #777;
+
+    box-shadow:
+        0 3px 12px
+        rgba(0,0,0,0.06);
+}
+
+.empty-icon {
+
+    font-size: 50px;
+
+    margin-bottom: 10px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+
+  
+
+    <div class="header">
+
+        <h1>
+            📅 Appointments
+        </h1>
+
+        <p>
+            View your Barangay Health Center
+            appointments and schedules.
+        </p>
+
+        <button onclick="back()">
+            ← Back to Dashboard
+        </button>
+
+    </div>
+
+
+
+    <div id="appointmentContainer">
+
+    </div>
+
+
+</div>
+
+
+<script>
+
+
+function back() {
+
+    window.location.href =
+        "dashboard.html";
+
+}
+
+
+
+function formatDate(dateString) {
+
+    if (!dateString) {
+        return "";
+    }
+
+    const date =
+        new Date(
+            dateString + "T00:00:00"
+        );
+
+    return date.toLocaleDateString(
+        "en-US",
+        {
+            month: "long",
+            day: "numeric",
+            year: "numeric"
+        }
+    );
+
+}
+
+
+
+
+function formatTime(timeString) {
+
+    if (!timeString) {
+        return "";
+    }
+
+    const parts =
+        timeString.split(":");
+
+    let hour =
+        parseInt(parts[0]);
+
+    const minute =
+        parts[1];
+
+    let ampm = "AM";
+
+    if (hour >= 12) {
+
+        ampm = "PM";
+
+    }
+
+    if (hour > 12) {
+
+        hour -= 12;
+
+    }
+
+    if (hour === 0) {
+
+        hour = 12;
+
+    }
+
+    return hour + ":" + minute + " " + ampm;
+
+}
+
+
+
+function loadAppointment() {
+
+    const container =
+        document.getElementById(
+            "appointmentContainer"
+        );
+
+
+
+
+    const savedAppointment =
+        localStorage.getItem(
+            "barangayAppointment"
+        );
+
+
+
+
+    if (!savedAppointment) {
+
+        container.innerHTML = `
+
+            <div class="empty">
+
+                <div class="empty-icon">
+                    📅
+                </div>
+
+                <h2>
+                    No Upcoming Appointment
+                </h2>
+
+                <p>
+                    You currently don't have
+                    a scheduled appointment.
+                </p>
+
+                <button
+                    onclick="makeAppointment()"
+                >
+                    🗓️ Make an Appointment
+                </button>
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+
+
+    const appointment =
+        JSON.parse(
+            savedAppointment
+        );
+
+
+    container.innerHTML = `
+
+        <div class="appointment">
+
+            <h2>
+                📌 Upcoming Appointment
+            </h2>
+
+
+            <div class="appointment-row">
+
+                <span class="label">
+                    Appointment Type
+                </span>
+
+                <span class="value">
+                    ${appointment.type}
+                </span>
+
+            </div>
+
+
+            <div class="appointment-row">
+
+                <span class="label">
+                    Date
+                </span>
+
+                <span class="value">
+                    ${formatDate(appointment.date)}
+                </span>
+
+            </div>
+
+
+            <div class="appointment-row">
+
+                <span class="label">
+                    Time
+                </span>
+
+                <span class="value">
+                    ${formatTime(appointment.time)}
+                </span>
+
+            </div>
+
+
+            <div class="appointment-row">
+
+                <span class="label">
+                    Status
+                </span>
+
+                <span class="value">
+
+                    <span class="status">
+                        ${appointment.status}
+                    </span>
+
+                </span>
+
+            </div>
+
+
+            <div class="notes">
+
+                <strong>
+                    📝 Reason / Notes
+                </strong>
+
+                <p>
+                    ${
+                        appointment.notes
+                        ?
+                        appointment.notes
+                        :
+                        "No additional notes."
+                    }
+                </p>
+
+            </div>
+
+        </div>
+
+    `;
+
+}
+
+
+
+
+function makeAppointment() {
+
+    window.location.href =
+        "online-appointment.html";
+
+}
+
+
+
+
+loadAppointment();
+
+</script>
+
+</body>
+
+</html>

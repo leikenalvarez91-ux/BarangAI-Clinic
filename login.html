@@ -1,0 +1,938 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Barangay Health Center - Login</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            background:
+                linear-gradient(
+                    rgba(0, 105, 120, 0.82),
+                    rgba(0, 150, 120, 0.82)
+                ),
+                url("https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=1920&q=80");
+            background-size: cover;
+            background-position: center;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1000px;
+            min-height: 600px;
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            display: flex;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.30);
+        }
+
+        .left {
+            width: 45%;
+            padding: 45px;
+            color: white;
+            background: linear-gradient(145deg, #006d77, #008f82);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .logo {
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            background: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 45px;
+            margin-bottom: 20px;
+        }
+
+        .left h1 {
+            font-size: 32px;
+            margin: 0 0 5px;
+        }
+
+        .left h2 {
+            font-size: 20px;
+            margin: 5px 0 20px;
+            color: #dffffb;
+        }
+
+        .left p {
+            line-height: 1.6;
+        }
+
+        .services {
+            line-height: 2;
+            margin-top: 10px;
+        }
+
+        .right {
+            width: 55%;
+            padding: 45px;
+        }
+
+        .page {
+            display: none;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        h2 {
+            color: #006d77;
+            margin-bottom: 8px;
+        }
+
+        .subtitle {
+            color: #777;
+            margin-bottom: 25px;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            font-size: 14px;
+            color: #444;
+            margin-top: 12px;
+        }
+
+        .optional {
+            font-weight: normal;
+            color: #888;
+            font-size: 12px;
+        }
+
+        input,
+        select {
+            width: 100%;
+            padding: 12px;
+            margin-top: 6px;
+            border: 1px solid #ccc;
+            border-radius: 7px;
+            font-size: 15px;
+        }
+
+        input:focus,
+        select:focus {
+            outline: none;
+            border-color: #008f82;
+        }
+
+        .two {
+            display: flex;
+            gap: 15px;
+        }
+
+        .two > div {
+            width: 50%;
+        }
+
+        button {
+            width: 100%;
+            padding: 13px;
+            border: none;
+            border-radius: 7px;
+            background: #007f78;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+
+        button:hover {
+            background: #005f59;
+        }
+
+        .outline {
+            background: white;
+            color: #007f78;
+            border: 2px solid #007f78;
+        }
+
+        .outline:hover {
+            background: #007f78;
+            color: white;
+        }
+
+        .back {
+            background: #777;
+        }
+
+        .back:hover {
+            background: #555;
+        }
+
+        .message {
+            padding: 12px;
+            border-radius: 7px;
+            margin-bottom: 15px;
+            display: none;
+            font-weight: bold;
+        }
+
+        .error {
+            background: #ffe0e0;
+            color: #a00000;
+        }
+
+        .success {
+            background: #dff8e8;
+            color: #08733d;
+        }
+
+        @media (max-width: 750px) {
+            .container {
+                flex-direction: column;
+            }
+
+            .left,
+            .right {
+                width: 100%;
+            }
+
+            .left {
+                padding: 30px;
+            }
+        }
+
+        @media (max-width: 500px) {
+            .two {
+                flex-direction: column;
+            }
+
+            .two > div {
+                width: 100%;
+            }
+
+            .right {
+                padding: 25px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="left">
+
+        <div class="logo">
+            🏥
+        </div>
+
+        <h1>
+            Barangay Health Center
+        </h1>
+
+        <h2>
+            Serbisyong Pangkalusugan
+        </h2>
+
+        <p>
+            Welcome to the Barangay Health Center
+            Online Portal.
+        </p>
+
+        <p>
+            Residents can register, log in and
+            access available health center services.
+        </p>
+
+        <div class="services">
+            ✓ Patient Registration<br>
+            ✓ Health Consultation<br>
+            ✓ Immunization<br>
+            ✓ Maternal & Child Health<br>
+            ✓ Community Health Programs
+        </div>
+
+    </div>
+
+    <div class="right">
+
+        <div id="home" class="page active">
+
+            <h2>
+                Welcome, Resident!
+            </h2>
+
+            <p class="subtitle">
+                Please choose an option to continue.
+            </p>
+
+            <button
+                type="button"
+                onclick="showPage('login')"
+            >
+                🔑 LOGIN
+            </button>
+
+            <button
+                type="button"
+                class="outline"
+                onclick="showPage('register')"
+            >
+                📝 SIGN UP / REGISTER
+            </button>
+
+        </div>
+
+        <div id="login" class="page">
+
+            <h2>
+                Resident Login
+            </h2>
+
+            <p class="subtitle">
+                Login using your email or contact number.
+            </p>
+
+            <div
+                id="loginMessage"
+                class="message"
+            ></div>
+
+            <form id="loginForm">
+
+                <label>
+                    Email / Contact Number
+                </label>
+
+                <input
+                    type="text"
+                    id="loginIdentifier"
+                    placeholder="Enter your email or contact number"
+                    required
+                >
+
+                <label>
+                    Password
+                </label>
+
+                <input
+                    type="password"
+                    id="loginPassword"
+                    placeholder="Enter your password"
+                    required
+                >
+
+                <button type="submit">
+                    LOGIN
+                </button>
+
+            </form>
+
+            <button
+                type="button"
+                class="outline"
+                onclick="showPage('register')"
+            >
+                Don't have an account? Register
+            </button>
+
+            <button
+                type="button"
+                class="back"
+                onclick="showPage('home')"
+            >
+                ← Back
+            </button>
+
+        </div>
+
+        <div id="register" class="page">
+
+            <h2>
+                Resident Registration
+            </h2>
+
+            <p class="subtitle">
+                Create your Barangay Health Center account.
+            </p>
+
+            <div
+                id="registerMessage"
+                class="message"
+            ></div>
+
+            <form id="registerForm">
+
+                <div class="two">
+
+                    <div>
+
+                        <label>
+                            First Name
+                        </label>
+
+                        <input
+                            type="text"
+                            id="firstName"
+                            placeholder="First name"
+                            required
+                        >
+
+                    </div>
+
+                    <div>
+
+                        <label>
+                            Middle Name
+                            <span class="optional">
+                                (Optional)
+                            </span>
+                        </label>
+
+                        <input
+                            type="text"
+                            id="middleName"
+                            placeholder="Middle name (optional)"
+                        >
+
+                    </div>
+
+                </div>
+
+                <label>
+                    Last Name
+                </label>
+
+                <input
+                    type="text"
+                    id="lastName"
+                    placeholder="Last name"
+                    required
+                >
+
+                <label>
+                    Date of Birth
+                </label>
+
+                <input
+                    type="date"
+                    id="birthday"
+                    required
+                >
+
+                <label>
+                    Sex
+                </label>
+
+                <select
+                    id="gender"
+                    required
+                >
+
+                    <option value="">
+                        Select Sex
+                    </option>
+
+                    <option value="Male">
+                        Male
+                    </option>
+
+                    <option value="Female">
+                        Female
+                    </option>
+
+                    <option value="Other">
+                        Other
+                    </option>
+
+                </select>
+
+                <label>
+                    Address / Purok
+                </label>
+
+                <input
+                    type="text"
+                    id="address"
+                    placeholder="Example: Purok 3"
+                    required
+                >
+
+                <label>
+                    Contact Number
+                </label>
+
+                <input
+                    type="tel"
+                    id="phone"
+                    placeholder="09XXXXXXXXX"
+                    required
+                >
+
+                <label>
+                    Email Address
+                </label>
+
+                <input
+                    type="email"
+                    id="registerEmail"
+                    placeholder="example@gmail.com"
+                    required
+                >
+
+                <div class="two">
+
+                    <div>
+
+                        <label>
+                            Password
+                        </label>
+
+                        <input
+                            type="password"
+                            id="registerPassword"
+                            placeholder="Create password"
+                            minlength="8"
+                            required
+                        >
+
+                    </div>
+
+                    <div>
+
+                        <label>
+                            Confirm Password
+                        </label>
+
+                        <input
+                            type="password"
+                            id="confirmPassword"
+                            placeholder="Confirm password"
+                            minlength="8"
+                            required
+                        >
+
+                    </div>
+
+                </div>
+
+                <button type="submit">
+                    REGISTER
+                </button>
+
+            </form>
+
+            <button
+                type="button"
+                class="back"
+                onclick="showPage('home')"
+            >
+                ← Back
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+
+function showPage(pageName) {
+
+    document
+        .querySelectorAll(".page")
+        .forEach(function(page) {
+            page.classList.remove("active");
+        });
+
+    const page =
+        document.getElementById(pageName);
+
+    if (page) {
+        page.classList.add("active");
+    }
+
+    document
+        .querySelectorAll(".message")
+        .forEach(function(message) {
+            message.style.display = "none";
+        });
+
+    if (pageName === "home") {
+
+        document
+            .getElementById("loginForm")
+            .reset();
+
+        document
+            .getElementById("registerForm")
+            .reset();
+    }
+}
+
+async function hashPassword(password) {
+
+    const encoder =
+        new TextEncoder();
+
+    const data =
+        encoder.encode(password);
+
+    const hashBuffer =
+        await crypto.subtle.digest(
+            "SHA-256",
+            data
+        );
+
+    const hashArray =
+        Array.from(
+            new Uint8Array(hashBuffer)
+        );
+
+    return hashArray
+        .map(function(byte) {
+            return byte
+                .toString(16)
+                .padStart(2, "0");
+        })
+        .join("");
+}
+
+function showMessage(
+    elementID,
+    message,
+    type
+) {
+
+    const element =
+        document.getElementById(elementID);
+
+    element.innerText =
+        message;
+
+    element.className =
+        "message " + type;
+
+    element.style.display =
+        "block";
+}
+
+document
+    .getElementById("registerForm")
+    .addEventListener(
+        "submit",
+        async function(event) {
+
+            event.preventDefault();
+
+            const firstName =
+                document
+                .getElementById("firstName")
+                .value
+                .trim();
+
+            const middleName =
+                document
+                .getElementById("middleName")
+                .value
+                .trim();
+
+            const lastName =
+                document
+                .getElementById("lastName")
+                .value
+                .trim();
+
+            const birthday =
+                document
+                .getElementById("birthday")
+                .value;
+
+            const gender =
+                document
+                .getElementById("gender")
+                .value;
+
+            const address =
+                document
+                .getElementById("address")
+                .value
+                .trim();
+
+            const phone =
+                document
+                .getElementById("phone")
+                .value
+                .trim();
+
+            const email =
+                document
+                .getElementById("registerEmail")
+                .value
+                .trim()
+                .toLowerCase();
+
+            const password =
+                document
+                .getElementById("registerPassword")
+                .value;
+
+            const confirmPassword =
+                document
+                .getElementById("confirmPassword")
+                .value;
+
+            if (password !== confirmPassword) {
+
+                showMessage(
+                    "registerMessage",
+                    "❌ Passwords do not match.",
+                    "error"
+                );
+
+                return;
+            }
+
+            if (password.length < 8) {
+
+                showMessage(
+                    "registerMessage",
+                    "❌ Password must be at least 8 characters.",
+                    "error"
+                );
+
+                return;
+            }
+
+            let savedAccounts =
+                JSON.parse(
+                    localStorage.getItem(
+                        "barangayAccounts"
+                    )
+                ) || [];
+
+            const emailAlreadyUsed =
+                savedAccounts.some(
+                    function(account) {
+
+                        return (
+                            account.email &&
+                            account.email
+                                .toLowerCase()
+                                === email
+                        );
+
+                    }
+                );
+
+            if (emailAlreadyUsed) {
+
+                showMessage(
+                    "registerMessage",
+                    "❌ This email is already registered.",
+                    "error"
+                );
+
+                return;
+            }
+
+            const phoneAlreadyUsed =
+                savedAccounts.some(
+                    function(account) {
+
+                        return (
+                            account.phone &&
+                            account.phone
+                                === phone
+                        );
+
+                    }
+                );
+
+            if (phoneAlreadyUsed) {
+
+                showMessage(
+                    "registerMessage",
+                    "❌ This contact number is already registered.",
+                    "error"
+                );
+
+                return;
+            }
+
+            const passwordHash =
+                await hashPassword(password);
+
+            const newAccount = {
+
+                id:
+                    Date.now().toString(),
+
+                firstName:
+                    firstName,
+
+                middleName:
+                    middleName,
+
+                lastName:
+                    lastName,
+
+                birthday:
+                    birthday,
+
+                gender:
+                    gender,
+
+                address:
+                    address,
+
+                phone:
+                    phone,
+
+                email:
+                    email,
+
+                passwordHash:
+                    passwordHash,
+
+                status:
+                    "active"
+            };
+
+            savedAccounts.push(
+                newAccount
+            );
+
+            localStorage.setItem(
+                "barangayAccounts",
+                JSON.stringify(
+                    savedAccounts
+                )
+            );
+
+            alert(
+                "✅ Registration successful!"
+            );
+
+            document
+                .getElementById("registerForm")
+                .reset();
+
+            showPage("login");
+
+            document
+                .getElementById("loginIdentifier")
+                .value = email;
+        }
+    );
+
+document
+    .getElementById("loginForm")
+    .addEventListener(
+        "submit",
+        async function(event) {
+
+            event.preventDefault();
+
+            const identifier =
+                document
+                .getElementById("loginIdentifier")
+                .value
+                .trim();
+
+            const password =
+                document
+                .getElementById("loginPassword")
+                .value;
+
+            const passwordHash =
+                await hashPassword(password);
+
+            const savedAccounts =
+                JSON.parse(
+                    localStorage.getItem(
+                        "barangayAccounts"
+                    )
+                ) || [];
+
+            const account =
+                savedAccounts.find(
+                    function(user) {
+
+                        const emailMatch =
+                            user.email &&
+                            user.email
+                                .toLowerCase()
+                                === identifier.toLowerCase();
+
+                        const phoneMatch =
+                            user.phone &&
+                            user.phone
+                                === identifier;
+
+                        return (
+                            (emailMatch || phoneMatch) &&
+                            user.passwordHash
+                                === passwordHash &&
+                            user.status
+                                === "active"
+                        );
+                    }
+                );
+
+            if (!account) {
+
+                showMessage(
+                    "loginMessage",
+                    "❌ Incorrect email/contact number or password, or your account is archived.",
+                    "error"
+                );
+
+                return;
+            }
+
+            localStorage.setItem(
+                "currentUserId",
+                account.id
+            );
+
+            window.location.href =
+                "./dashboard.html";
+        }
+    );
+
+window.addEventListener(
+    "pageshow",
+    function() {
+
+        const currentUserId =
+            localStorage.getItem(
+                "currentUserId"
+            );
+
+        if (currentUserId) {
+
+            window.location.href =
+                "./dashboard.html";
+        }
+
+    }
+);
+
+</script>
+
+</body>
+</html>

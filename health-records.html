@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
+
+<title>Health Records</title>
+
+<style>
+
+* {
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+
+    margin: 0;
+
+    min-height: 100vh;
+
+    background:
+        linear-gradient(
+            rgba(0,105,120,.85),
+            rgba(0,150,120,.85)
+        );
+
+    padding: 30px;
+}
+
+.container {
+
+    max-width: 900px;
+
+    margin: auto;
+
+    background: #f5f9f8;
+
+    padding: 25px;
+
+    border-radius: 20px;
+}
+
+.header,
+.card {
+
+    background: white;
+
+    padding: 25px;
+
+    border-radius: 15px;
+
+    margin-bottom: 15px;
+
+    box-shadow:
+        0 3px 12px
+        rgba(0,0,0,.06);
+}
+
+h1,
+h2 {
+
+    color: #006d77;
+}
+
+p {
+
+    color: #666;
+
+    line-height: 1.6;
+}
+
+button {
+
+    padding: 12px 20px;
+
+    border: none;
+
+    border-radius: 7px;
+
+    background: #007f78;
+
+    color: white;
+
+    font-weight: bold;
+
+    cursor: pointer;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<div class="header">
+
+<h1>
+❤️ Health Records
+</h1>
+
+<p>
+Your available health information
+and registered health records.
+</p>
+
+<button onclick="back()">
+← Back to Dashboard
+</button>
+
+</div>
+
+
+<div class="card">
+
+<h2>
+General Health Information
+</h2>
+
+<p>
+Your health information recorded by
+the Barangay Health Center can be
+displayed here.
+</p>
+
+<p>
+<strong>Health Status:</strong>
+Registered Resident
+</p>
+
+</div>
+
+
+<div class="card">
+
+<h2>
+Medical History
+</h2>
+
+<p>
+No medical history has been recorded
+in this demo account.
+</p>
+
+</div>
+
+
+<div class="card">
+
+<h2>
+Recent Health Activity
+</h2>
+
+<p>
+No recent health activity recorded.
+</p>
+
+</div>
+
+</div>
+
+<script>
+
+function back() {
+
+    window.location.href =
+        "dashboard.html";
+
+}
+
+</script>
+
+</body>
+
+</html>

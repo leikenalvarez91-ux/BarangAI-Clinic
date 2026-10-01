@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Online Appointment</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+
+            background:
+                linear-gradient(
+                    rgba(0,105,120,0.85),
+                    rgba(0,150,120,0.85)
+                ),
+                url("https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=1920&q=80");
+
+            background-size: cover;
+            background-position: center;
+
+            padding: 25px;
+        }
+
+        .container {
+            max-width: 850px;
+            margin: auto;
+
+            background: #f5f9f8;
+
+            padding: 30px;
+
+            border-radius: 20px;
+
+            box-shadow:
+                0 15px 40px
+                rgba(0,0,0,0.3);
+        }
+
+        .header {
+            background:
+                linear-gradient(
+                    135deg,
+                    #006d77,
+                    #009b88
+                );
+
+            color: white;
+
+            padding: 25px;
+
+            border-radius: 15px;
+
+            margin-bottom: 20px;
+        }
+
+        .header h1 {
+            margin: 0 0 8px;
+        }
+
+        .header p {
+            margin: 0;
+        }
+
+        .form-box {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+        }
+
+        label {
+            display: block;
+
+            font-weight: bold;
+
+            margin-top: 15px;
+
+            color: #444;
+        }
+
+        input,
+        select,
+        textarea {
+            width: 100%;
+
+            padding: 12px;
+
+            margin-top: 6px;
+
+            border: 1px solid #ccc;
+
+            border-radius: 7px;
+
+            font-size: 15px;
+        }
+
+        textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        button {
+            width: 100%;
+
+            padding: 13px;
+
+            margin-top: 20px;
+
+            border: none;
+
+            border-radius: 7px;
+
+            background: #007f78;
+
+            color: white;
+
+            font-size: 16px;
+
+            font-weight: bold;
+
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #005f59;
+        }
+
+        .back {
+            background: #777;
+        }
+
+        .back:hover {
+            background: #555;
+        }
+
+        .success {
+            display: none;
+
+            margin-top: 15px;
+
+            padding: 13px;
+
+            border-radius: 7px;
+
+            background: #dff8e8;
+
+            color: #08733d;
+
+            font-weight: bold;
+        }
+
+        .closed-message {
+            display: none;
+
+            margin-bottom: 15px;
+
+            padding: 15px;
+
+            border-radius: 8px;
+
+            background: #ffe1e1;
+
+            color: #b42318;
+
+            font-weight: bold;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="header">
+
+        <h1>
+            🗓️ Online Appointment
+        </h1>
+
+        <p>
+            Schedule an appointment with the
+            Barangay Health Center.
+        </p>
+
+    </div>
+
+
+    <div class="form-box">
+
+        <div
+            id="closedMessage"
+            class="closed-message"
+        >
+            🔴 The Barangay Health Center is
+            closed on Saturdays. Please select
+            another date.
+        </div>
+
+
+        <form id="appointmentForm">
+
+            <label>
+                Appointment Type
+            </label>
+
+            <select
+                id="appointmentType"
+                required
+            >
+
+                <option value="">
+                    Select service
+                </option>
+
+                <option value="Health Consultation">
+                    Health Consultation
+                </option>
+
+                <option value="Immunization">
+                    Immunization
+                </option>
+
+                <option value="Maternal Health">
+                    Maternal Health
+                </option>
+
+                <option value="Child Health">
+                    Child Health
+                </option>
+
+                <option value="Health Records">
+                    Health Records
+                </option>
+
+            </select>
+
+
+            <label>
+                Preferred Date
+            </label>
+
+            <input
+                type="date"
+                id="appointmentDate"
+                required
+            >
+
+
+            <label>
+                Preferred Time
+            </label>
+
+            <input
+                type="time"
+                id="appointmentTime"
+                required
+            >
+
+
+            <label>
+                Reason / Notes
+            </label>
+
+            <textarea
+                id="appointmentNotes"
+                placeholder="Enter additional information..."
+            ></textarea>
+
+
+            <button type="submit">
+                SUBMIT APPOINTMENT
+            </button>
+
+        </form>
+
+
+        <div
+            class="success"
+            id="successMessage"
+        >
+            ✅ Your appointment request has
+            been submitted successfully.
+            <br><br>
+            You can now return to the dashboard
+            to see your appointment notification.
+        </div>
+
+
+        <button
+            class="back"
+            onclick="goBack()"
+        >
+            ← Back to Dashboard
+        </button>
+
+    </div>
+
+</div>
+
+
+<script>
+
+const appointmentDate =
+    document.getElementById(
+        "appointmentDate"
+    );
+
+const form =
+    document.getElementById(
+        "appointmentForm"
+    );
+
+const closedMessage =
+    document.getElementById(
+        "closedMessage"
+    );
+
+
+
+
+
+const today =
+    new Date();
+
+const todayString =
+    today.getFullYear() +
+    "-" +
+    String(
+        today.getMonth() + 1
+    ).padStart(2, "0") +
+    "-" +
+    String(
+        today.getDate()
+    ).padStart(2, "0");
+
+appointmentDate.min =
+    todayString;
+
+
+
+
+function isSaturday(dateString) {
+
+    const date =
+        new Date(
+            dateString + "T00:00:00"
+        );
+
+    return date.getDay() === 6;
+}
+
+
+
+
+appointmentDate.addEventListener(
+    "change",
+    function() {
+
+        if (
+            isSaturday(
+                appointmentDate.value
+            )
+        ) {
+
+            closedMessage.style.display =
+                "block";
+
+            appointmentDate.value = "";
+
+        } else {
+
+            closedMessage.style.display =
+                "none";
+
+        }
+
+    }
+);
+
+
+
+form.addEventListener(
+    "submit",
+    function(event) {
+
+        event.preventDefault();
+
+
+        const selectedDate =
+            appointmentDate.value;
+
+
+
+        if (
+            isSaturday(
+                selectedDate
+            )
+        ) {
+
+            alert(
+                "The clinic is closed on Saturday. Please select another date."
+            );
+
+            return;
+
+        }
+
+
+        const appointment = {
+
+            type:
+                document
+                .getElementById(
+                    "appointmentType"
+                )
+                .value,
+
+            date:
+                document
+                .getElementById(
+                    "appointmentDate"
+                )
+                .value,
+
+            time:
+                document
+                .getElementById(
+                    "appointmentTime"
+                )
+                .value,
+
+            notes:
+                document
+                .getElementById(
+                    "appointmentNotes"
+                )
+                .value,
+
+            status:
+                "Pending",
+
+            createdAt:
+                new Date().toISOString()
+
+        };
+
+
+ 
+        localStorage.setItem(
+            "barangayAppointment",
+            JSON.stringify(
+                appointment
+            )
+        );
+
+
+       
+
+        localStorage.setItem(
+            "appointmentNotification",
+            "true"
+        );
+
+
+ 
+
+        document
+            .getElementById(
+                "successMessage"
+            )
+            .style.display =
+            "block";
+
+
+        form.reset();
+
+
+        closedMessage.style.display =
+            "none";
+
+    }
+);
+
+
+
+function goBack() {
+
+    window.location.href =
+        "dashboard.html";
+
+}
+
+</script>
+
+</body>
+</html>

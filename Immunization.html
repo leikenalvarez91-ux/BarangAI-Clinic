@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
+
+<title>
+    Immunization Records
+</title>
+
+<style>
+
+* {
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+
+    margin: 0;
+
+    min-height: 100vh;
+
+    background:
+        linear-gradient(
+            rgba(0,105,120,0.82),
+            rgba(0,150,120,0.82)
+        ),
+        url("https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=1920&q=80");
+
+    background-size: cover;
+
+    background-position: center;
+
+    color: #333;
+
+}
+
+.container {
+
+    max-width: 1100px;
+
+    margin: 30px auto;
+
+    padding: 25px;
+
+}
+
+.topbar {
+
+    background: white;
+
+    padding: 18px 22px;
+
+    border-radius: 15px;
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    margin-bottom: 20px;
+
+    box-shadow:
+        0 5px 15px rgba(0,0,0,0.12);
+
+}
+
+.brand {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+}
+
+.icon {
+
+    width: 50px;
+
+    height: 50px;
+
+    background: #e3f7f4;
+
+    border-radius: 50%;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    font-size: 27px;
+
+}
+
+.brand h2 {
+
+    margin: 0;
+
+    color: #006d77;
+
+}
+
+.brand span {
+
+    color: #777;
+
+    font-size: 13px;
+
+}
+
+.back {
+
+    border: none;
+
+    background: #007f78;
+
+    color: white;
+
+    padding: 11px 18px;
+
+    border-radius: 7px;
+
+    cursor: pointer;
+
+    font-weight: bold;
+
+}
+
+.header {
+
+    background:
+        linear-gradient(
+            135deg,
+            #006d77,
+            #009b88
+        );
+
+    color: white;
+
+    padding: 30px;
+
+    border-radius: 15px;
+
+    margin-bottom: 20px;
+
+}
+
+.header h1 {
+
+    margin: 0 0 8px;
+
+}
+
+.header p {
+
+    margin: 0;
+
+    opacity: 0.9;
+
+}
+
+.patient {
+
+    background: white;
+
+    padding: 20px;
+
+    border-radius: 15px;
+
+    margin-bottom: 20px;
+
+    box-shadow:
+        0 4px 12px rgba(0,0,0,0.07);
+
+}
+
+.patient h2 {
+
+    color: #006d77;
+
+    margin-top: 0;
+
+}
+
+.patient-info {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(2,1fr);
+
+    gap: 10px;
+
+}
+
+.info {
+
+    padding: 12px;
+
+    background: #f4f9f8;
+
+    border-radius: 8px;
+
+}
+
+.info strong {
+
+    color: #555;
+
+}
+
+.table-box {
+
+    background: white;
+
+    padding: 20px;
+
+    border-radius: 15px;
+
+    overflow-x: auto;
+
+}
+
+table {
+
+    width: 100%;
+
+    border-collapse: collapse;
+
+}
+
+th {
+
+    background: #007f78;
+
+    color: white;
+
+    padding: 13px;
+
+    text-align: left;
+
+}
+
+td {
+
+    padding: 13px;
+
+    border-bottom: 1px solid #eee;
+
+}
+
+.completed {
+
+    color: #08733d;
+
+    font-weight: bold;
+
+}
+
+.pending {
+
+    color: #8a6900;
+
+    font-weight: bold;
+
+}
+
+@media(max-width:600px) {
+
+    .container {
+        margin: 10px;
+        padding: 10px;
+    }
+
+    .topbar {
+        flex-direction: column;
+        gap: 15px;
+        align-items: flex-start;
+    }
+
+    .back {
+        width: 100%;
+    }
+
+    .patient-info {
+        grid-template-columns: 1fr;
+    }
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="topbar">
+
+        <div class="brand">
+
+            <div class="icon">
+                💉
+            </div>
+
+            <div>
+
+                <h2>
+                    Immunization
+                </h2>
+
+                <span>
+                    Barangay Health Center
+                </span>
+
+            </div>
+
+        </div>
+
+        <button
+            class="back"
+            onclick="goBack()"
+        >
+            ← Back to Dashboard
+        </button>
+
+    </div>
+
+    <div class="header">
+
+        <h1>
+            💉 Immunization Records
+        </h1>
+
+        <p>
+            View your available vaccination
+            and immunization information.
+        </p>
+
+    </div>
+
+    <div class="patient">
+
+        <h2>
+            Patient Information
+        </h2>
+
+        <div class="patient-info">
+
+            <div class="info">
+                <strong>Name:</strong>
+                <span id="name"></span>
+            </div>
+
+            <div class="info">
+                <strong>Date of Birth:</strong>
+                <span id="birthday"></span>
+            </div>
+
+            <div class="info">
+                <strong>Sex:</strong>
+                <span id="gender"></span>
+            </div>
+
+            <div class="info">
+                <strong>Contact:</strong>
+                <span id="phone"></span>
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="table-box">
+
+        <h2>
+            Vaccination History
+        </h2>
+
+        <table>
+
+            <thead>
+
+                <tr>
+
+                    <th>
+                        Vaccine
+                    </th>
+
+                    <th>
+                        Dose
+                    </th>
+
+                    <th>
+                        Date
+                    </th>
+
+                    <th>
+                        Status
+                    </th>
+
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+                <tr>
+
+                    <td>
+                        BCG
+                    </td>
+
+                    <td>
+                        1
+                    </td>
+
+                    <td>
+                        No record
+                    </td>
+
+                    <td class="pending">
+                        Check Record
+                    </td>
+
+                </tr>
+
+                <tr>
+
+                    <td>
+                        Hepatitis B
+                    </td>
+
+                    <td>
+                        1
+                    </td>
+
+                    <td>
+                        No record
+                    </td>
+
+                    <td class="pending">
+                        Check Record
+                    </td>
+
+                </tr>
+
+                <tr>
+
+                    <td>
+                        Polio
+                    </td>
+
+                    <td>
+                        1
+                    </td>
+
+                    <td>
+                        No record
+                    </td>
+
+                    <td class="pending">
+                        Check Record
+                    </td>
+
+                </tr>
+
+                <tr>
+
+                    <td>
+                        Measles
+                    </td>
+
+                    <td>
+                        1
+                    </td>
+
+                    <td>
+                        No record
+                    </td>
+
+                    <td class="pending">
+                        Check Record
+                    </td>
+
+                </tr>
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
+
+<script>
+
+function loadPatient() {
+
+    const id =
+        localStorage.getItem(
+            "currentUserId"
+        );
+
+    if (!id) {
+
+        window.location.href =
+            "login.html";
+
+        return;
+
+    }
+
+    const accounts =
+        JSON.parse(
+            localStorage.getItem(
+                "barangayAccounts"
+            )
+        ) || [];
+
+    const user =
+        accounts.find(
+            function(account) {
+
+                return (
+                    account.id === id &&
+                    account.status === "active"
+                );
+
+            }
+        );
+
+    if (!user) {
+
+        window.location.href =
+            "login.html";
+
+        return;
+
+    }
+
+    document.getElementById("name").innerText =
+        user.firstName + " " + user.lastName;
+
+    document.getElementById("birthday").innerText =
+        user.birthday;
+
+    document.getElementById("gender").innerText =
+        user.gender;
+
+    document.getElementById("phone").innerText =
+        user.phone;
+
+}
+
+function goBack() {
+
+    window.location.href =
+        "dashboard.html";
+
+}
+
+loadPatient();
+
+</script>
+
+</body>
+
+</html>
